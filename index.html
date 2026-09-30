@@ -47,7 +47,7 @@ input.code,textarea.code{width:100%;padding:14px;border:2px solid var(--bd);bord
 </style>
 </head>
 <body>
-<div id="app"></div>
+<div id="app"></div><div id="dlg"></div>
 <script>
 const U=[
 {id:1,ic:'🌱',t:'İlk Adım',d:'HTML nedir? Etiket nedir?',
@@ -88,6 +88,44 @@ q:[
 {k:'mc',q:'Numaralı liste etiketi hangisi?',o:['<ul>','<ol>','<li>','<nl>'],a:1,e:'ol = ordered list (sıralı liste). ul noktalı listedir.'},
 {k:'mc',q:'Liste maddesi hangi etiketle yazılır?',o:['<item>','<p>','<li>'],a:2,e:'Her madde <li> etiketinin içine yazılır.'},
 {k:'type',q:'Noktalı listeye tek madde ekle: <b>Elma</b>',a:['<ul><li>Elma</li></ul>'],e:'Doğrusu: <ul><li>Elma</li></ul>'}]}
+,{id:6,ic:'🏠',t:'Sayfa İskeleti',d:'html, head, body, title',
+teach:[
+{h:'Bir sayfanın iskeleti',p:'Gerçek bir web sayfası <b>&lt;html&gt;</b> etiketiyle başlar. İçinde iki bölüm olur: <b>&lt;head&gt;</b> (sayfa hakkında bilgiler, ekranda görünmez) ve <b>&lt;body&gt;</b> (ekranda görünen her şey).',c:'<html>\n<head>\n<title>Sayfam</title>\n</head>\n<body>\n<h1>Merhaba</h1>\n</body>\n</html>'},
+{h:'Title ve DOCTYPE',p:'<b>&lt;title&gt;</b> tarayıcı sekmesinde görünen sayfa adıdır. Dosyanın en üstüne <b>&lt;!DOCTYPE html&gt;</b> yazılır; tarayıcıya "bu modern HTML" der.',c:'<!DOCTYPE html>\n<html>\n<head><title>Adım</title></head>\n<body><p>İçerik</p></body>\n</html>'}],
+q:[
+{k:'mc',q:'Ekranda görünen içerik hangi etiketin içine yazılır?',o:['<head>','<body>','<title>'],a:1,e:'Görünen her şey body içindedir. head sayfa bilgilerini tutar.'},
+{k:'mc',q:'title neyi belirler?',o:['Sayfanın en büyük başlığını','Tarayıcı sekmesindeki adı','Sayfanın rengini'],a:1,e:'title, sekmede görünen sayfa adıdır.'},
+{k:'type',q:'body etiketinin içine <b>Merhaba</b> yazan bir paragraf koy:',a:['<body><p>Merhaba</p></body>'],e:'Doğrusu: <body><p>Merhaba</p></body>'}]}
+,{id:7,ic:'📦',t:'Gruplama',d:'div, span, br, hr',
+teach:[
+{h:'div ve span',p:'<b>&lt;div&gt;</b> içeriği kutu gibi gruplar ve alt satıra geçer. <b>&lt;span&gt;</b> ise yazının içindeki küçük bir parçayı işaretler, satırı bölmez. İkisi de tek başına görünüşü değiştirmez; stil vermek için kullanılır.',c:'<div>\n<p>Kutu içinde paragraf</p>\n</div>\n<p>Bu <span>kelime</span> işaretli</p>'},
+{h:'Satır sonu ve çizgi',p:'<b>&lt;br&gt;</b> satırı bitirir, <b>&lt;hr&gt;</b> yatay çizgi çeker. İkisinin de kapanış etiketi yoktur.',c:'<p>Birinci satır<br>İkinci satır</p>\n<hr>\n<p>Çizgiden sonra</p>'}],
+q:[
+{k:'mc',q:'Yeni satıra geçmek için hangisi kullanılır?',o:['<hr>','<br>','<div>'],a:1,e:'br satır sonudur. hr ise yatay çizgi çeker.'},
+{k:'mc',q:'hr etiketi ne yapar?',o:['Yatay çizgi çeker','Yazıyı kalın yapar','Başlık oluşturur'],a:0,e:'hr yatay bir çizgi çeker (horizontal rule).'},
+{k:'type',q:'<b>Bir</b> yazısından sonra satır atla, sonra <b>İki</b> yaz (br kullan):',a:['Bir<br>İki'],e:'Doğrusu: Bir<br>İki'}]}
+,{id:8,ic:'📊',t:'Tablolar',d:'table, tr, th, td',
+teach:[
+{h:'Tablo yapmak',p:'<b>&lt;table&gt;</b> tabloyu başlatır. Her satır <b>&lt;tr&gt;</b> (table row), başlık hücresi <b>&lt;th&gt;</b>, normal hücre <b>&lt;td&gt;</b> ile yazılır.',c:'<table border="1">\n<tr><th>Ad</th><th>Yaş</th></tr>\n<tr><td>Ali</td><td>12</td></tr>\n</table>'}],
+q:[
+{k:'mc',q:'Tablo satırı etiketi hangisi?',o:['<td>','<tr>','<th>','<row>'],a:1,e:'tr = table row, yani tablo satırı.'},
+{k:'mc',q:'Başlık hücresi hangisi?',o:['<th>','<td>','<h1>'],a:0,e:'th = table header. td normal veri hücresidir.'},
+{k:'type',q:'Tek satırlı ve tek hücreli bir tablo yaz. Hücrede <b>A</b> yazsın:',a:['<table><tr><td>A</td></tr></table>'],e:'Doğrusu: <table><tr><td>A</td></tr></table>'}]}
+,{id:9,ic:'✉️',t:'Formlar',d:'input, label, button',
+teach:[
+{h:'Form elemanları',p:'<b>&lt;input&gt;</b> kullanıcıdan bilgi alır ve kapanış etiketi yoktur. <b>type</b> özelliği türünü belirler (text, password, checkbox…). <b>&lt;label&gt;</b> kutunun adıdır, <b>&lt;button&gt;</b> tıklanan düğmedir.',c:'<label>Adın:</label>\n<input type="text" placeholder="Yaz...">\n<button>Gönder</button>'}],
+q:[
+{k:'mc',q:'input etiketi kapanış etiketi ister mi?',o:['Evet','Hayır'],a:1,e:'input kapanışsız bir etikettir, tıpkı img gibi.'},
+{k:'mc',q:'Yazı kutusu için type değeri hangisi?',o:['text','box','write'],a:0,e:'Yazı kutusu için type="text" kullanılır.'},
+{k:'type',q:'<b>Gönder</b> yazılı bir düğme yap:',a:['<button>Gönder</button>'],e:'Doğrusu: <button>Gönder</button>'}]}
+,{id:10,ic:'🎨',t:'Renk ve Stil (CSS)',d:'style, color, font-size',
+teach:[
+{h:'Görünüşü değiştirmek',p:'HTML yapıyı kurar, görünüşü <b>CSS</b> belirler. En basit yol etikete <b>style</b> özelliği vermektir. Kalıp: <b>özellik: değer;</b> (iki nokta ve noktalı virgül).',c:'<p style="color:red">Kırmızı yazı</p>'},
+{h:'Sık kullanılanlar',p:'<b>color</b> yazı rengi, <b>background-color</b> arka plan rengi, <b>font-size</b> yazı boyudur. Birden fazlasını noktalı virgülle ayır.',c:'<h1 style="color:white; background-color:teal; font-size:30px">Stilli başlık</h1>'}],
+q:[
+{k:'mc',q:'Yazı rengini hangi CSS özelliği değiştirir?',o:['font-size','color','background-color'],a:1,e:'color yazı rengidir. background-color arka plan rengidir.'},
+{k:'mc',q:'Doğru kalıp hangisi?',o:['color=red','color: red;','color - red'],a:1,e:'CSS kalıbı özellik: değer; şeklindedir.'},
+{k:'type',q:'<b>Merhaba</b> paragrafına mavi renk ver:',a:['<p style="color:blue">Merhaba</p>','<p style="color:blue;">Merhaba</p>'],e:'Doğrusu: <p style="color:blue">Merhaba</p>'}]}
 ];
 const G={
 1:{pre:[{h:'Kod nasıl yazılır?',p:'Her etiket aynı kalıpla yazılır: <b>&lt;</b> ile başlar, etiket adı gelir, <b>&gt;</b> ile biter. Kapanışta ada bir <b>/</b> eklenir. Küçük harf kullanmak alışkanlıktır. Boşluklar ve yeni satırlar sayfanın görünüşünü değiştirmez, sadece kodu okunaklı yapar.',c:'<p>Kod    böyle\nyazılır</p>'}],
@@ -100,30 +138,62 @@ const G={
 4:{g:[['<img>','Resim etiketi. Kapanış etiketi yoktur'],['src','Resim dosyasının adresi'],['alt','Resim görünmezse çıkan açıklama']],
  tr:'<img src="kedi.jpg" alt="Kedi resmi">',p:'Kodu değiştir, önizleme anında güncellenir. Elimizde kedi.jpg dosyası olmadığı için alt yazısı görünecek.'},
 5:{g:[['<ul>','Noktalı liste'],['<ol>','Numaralı liste'],['<li>','Listedeki tek bir madde']],
- tr:'<ol>\n<li>Birinci</li>\n<li>İkinci</li>\n</ol>'}};
+ tr:'<ol>\n<li>Birinci</li>\n<li>İkinci</li>\n</ol>'},
+6:{g:[['<html>','Sayfanın tamamını saran ana etiket'],['<head>','Sayfa hakkında bilgiler (ekranda görünmez)'],['<body>','Ekranda görünen her şey'],['<title>','Tarayıcı sekmesindeki ad']],
+ tr:'<html>\n<head><title>Sayfam</title></head>\n<body>\n<h1>Merhaba</h1>\n</body>\n</html>'},
+7:{g:[['<div>','İçeriği kutu gibi gruplar'],['<span>','Yazının küçük bir parçasını işaretler'],['<br>','Satır sonu (kapanışsız)'],['<hr>','Yatay çizgi (kapanışsız)']],
+ tr:'<div>\n<p>Birinci satır<br>İkinci satır</p>\n</div>\n<hr>'},
+8:{g:[['<table>','Tablonun tamamı'],['<tr>','Tablo satırı'],['<th>','Başlık hücresi (kalın)'],['<td>','Normal hücre']],
+ tr:'<table border="1">\n<tr><th>Ürün</th><th>Fiyat</th></tr>\n<tr><td>Elma</td><td>10</td></tr>\n</table>'},
+9:{g:[['<input>','Bilgi giriş kutusu (kapanışsız)'],['type','Kutunun türü: text, password…'],['<label>','Kutunun adı'],['<button>','Tıklanabilir düğme']],
+ tr:'<label>Adın:</label>\n<input type="text" placeholder="Yaz...">\n<button>Gönder</button>'},
+10:{g:[['style','Etikete doğrudan stil verme özelliği'],['color','Yazı rengi'],['background-color','Arka plan rengi'],['font-size','Yazı boyu']],
+ tr:'<h1 style="color:tomato">Renkli başlık</h1>\n<p style="font-size:24px">Büyük yazı</p>'}};
 const $=s=>document.querySelector(s);
 const esc=t=>t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 const norm=t=>t.toLowerCase().replace(/\s+/g,'').replace(/'/g,'"').replace(/\/>/g,'>');
 let S={xp:0,done:[],started:false,streak:0,last:''};
 try{Object.assign(S,JSON.parse(localStorage.getItem('htmlduo')||'{}'))}catch(e){}
-const save=()=>{try{localStorage.setItem('htmlduo',JSON.stringify(S))}catch(e){}};
+let DB=null,ST='local',V='home',PT=null,CB=null;
+const save=()=>{S.ts=Date.now();try{localStorage.setItem('htmlduo',JSON.stringify(S))}catch(e){}push()};
+function push(){if(!DB)return;clearTimeout(PT);PT=setTimeout(async()=>{try{await DB.set(JSON.parse(JSON.stringify(S)));ST='cloud'}catch(e){ST='local'}},700)}
+async function initCloud(){
+  try{
+    if(!window.claude||!window.claude.use)return;
+    const db=await claude.use('db'),us=await claude.use('user');
+    if(!db||!us)return;
+    const id=await us.id();if(!id)return;
+    const ref=db.collection('data/users/'+id).doc('progress'),sn=await ref.get(),c=sn.exists?sn.data():null;
+    DB=ref;ST='cloud';
+    if(c&&(c.ts||0)>(S.ts||0)){S=Object.assign({xp:0,done:[],started:false,streak:0,last:''},c);try{localStorage.setItem('htmlduo',JSON.stringify(S))}catch(e){}}
+    else push();
+    if(V==='home')home();
+  }catch(e){DB=null;ST='local'}
+}
+function ask(m,f){CB=f;$('#dlg').innerHTML=`<div class="ov"><div><p style="font-size:17px">${m}</p><button class="btn red" onclick="yes()">Evet</button><button class="btn ghost" onclick="no()">Vazgeç</button></div></div>`}
+function yes(){const f=CB;no();if(f)f()}
+function no(){CB=null;$('#dlg').innerHTML=''}
+function rename(){$('#dlg').innerHTML=`<div class="ov"><div><p style="font-size:17px">Adın ne?</p><input class="code" id="nm2" maxlength="20" value="${esc(S.name||'')}"><button class="btn" onclick="setName()">Kaydet</button><button class="btn ghost" onclick="no()">Vazgeç</button></div></div>`}
+function setName(){S.name=$('#nm2').value.trim().slice(0,20);save();no();home()}
+function resetAll(){const n=S.name,p=S.play,a=S.ac;S={xp:0,done:[],started:false,streak:0,last:'',name:n,play:p,pt:[],ac:a};save();home()}
+const acct=()=>'👤 <b>'+esc(S.name||'Misafir')+'</b> <button class="x" style="font-size:14px" onclick="rename()">✏️</button> · '+(ST==='cloud'?'☁️ Hesabına kaydediliyor, her cihazda seninle':'💾 Bu cihazda kaydediliyor');
 const lvl=()=>Math.floor(S.xp/60)+1;
 const names=['Çaylak','Öğrenci','Kodlayıcı','Usta','Efsane'];
 let L=null;
 
 function home(){
-  L=null;
+  L=null;V='home';
   const un=U.map((u,i)=>{
     const dn=S.done.includes(u.id),lk=i>0&&!S.done.includes(U[i-1].id);
     return `<button class="unit ${dn?'done':''} ${lk?'lock':''}" ${lk?'disabled':`onclick="start(${u.id})"`}><div class="ic">${lk?'🔒':dn?'⭐':u.ic}</div><div><b>Bölüm ${u.id}: ${u.t}</b><span>${lk?'Önceki bölümü bitir':u.d}${dn?' • Tekrar çalış':''}</span></div></button>`}).join('');
   $('#app').innerHTML=`<div class="top"><span class="pill">🔥 ${S.streak}</span><span class="pill">⭐ ${S.xp} XP</span><span class="pill">Lv ${lvl()} · ${names[Math.min(lvl()-1,4)]}</span></div>
   <div class="bar"><i style="width:${(S.xp%60)/60*100}%"></i></div>
-  <h1>HTML Yolculuğun</h1><p style="color:var(--mut);margin-top:0">Bölümleri sırayla bitir, XP kazan, level atla. ${S.done.length}/${U.length} bölüm tamam.</p><button class="btn ghost" onclick="play()">🧪 Deneme Alanı: kendi sayfanı yap</button>${un}
-  ${S.done.length===U.length?'<div class="center"><div class="big">🏆</div><h1>Tüm bölümler tamam!</h1><p>Harikasın. İstersen bölümleri tekrar çalış.</p></div>':''}
-  ${S.started?'':`<div class="ov"><div><h1>Hoş geldin! 👋</h1><p>Seviyeni seçelim:</p><button class="btn" onclick="lv(0)">Sıfırdan başlıyorum</button><button class="btn ghost" onclick="lv(1)">HTML'i biraz biliyorum (1. bölümü atla)</button></div></div>`}`;
+  <h1>HTML Yolculuğun</h1><p style="margin:0 0 6px;font-size:14px;color:var(--mut)">${acct()}</p><p style="color:var(--mut);margin-top:0">Bölümleri sırayla bitir, XP kazan, level atla. ${S.done.length}/${U.length} bölüm tamam.</p><button class="btn ghost" onclick="play()">🧪 Deneme Alanı: kendi sayfanı yap</button>${S.done.length===U.length?`<div class="center" style="padding-top:10px"><div class="big">🏆</div><h1>Tüm bölümler tamam!</h1><p>Harikasın! İstersen bölümleri tekrar çalış ya da en baştan başla.</p><button class="btn red" onclick="ask('Tüm ilerleme (XP, level, bölümler) sıfırlanacak ve 1. bölümden başlayacaksın. Deneme Alanındaki kodun silinmez. Emin misin?',resetAll)">🔄 Baştan başla</button></div>`:''}${un}
+  ${S.started?'':`<div class="ov"><div><h1>Hoş geldin! 👋</h1><p>Adın ne?</p><input class="code" id="nm" maxlength="20" placeholder="Adın (isteğe bağlı)" value="${esc(S.name||'')}"><p>Seviyeni seç:</p><button class="btn" onclick="lv(0)">Sıfırdan başlıyorum</button><button class="btn ghost" onclick="lv(1)">HTML'i biraz biliyorum (1. bölümü atla)</button></div></div>`}`;
 }
-function lv(k){S.started=true;if(k&&!S.done.includes(1))S.done.push(1);save();home()}
+function lv(k){const nm=$('#nm');if(nm&&nm.value.trim())S.name=nm.value.trim().slice(0,20);S.started=true;if(k&&!S.done.includes(1))S.done.push(1);save();home()}
 function start(id){
+  V='lesson';
   const u=U.find(x=>x.id==id);
   L={u,items:[{k:'g',g:G[u.id].g},...(G[u.id].pre||[]).map(t=>({k:'t',...t})),...u.teach.map(t=>({k:'t',...t})),{k:'try',c:G[u.id].tr,p:G[u.id].p||'Kodu değiştir, altındaki önizleme anında güncellenir. Hata yapmak serbest!'},...u.q.map(q=>({...q}))],i:0,hearts:3,xp:0,wrong:0,sel:null,val:'',res:null};
   lesson();
@@ -147,7 +217,7 @@ function lesson(){
     if(!L.res)foot=`<button class="btn" id="chk" ${(it.k==='mc'?L.sel===null:!L.val.trim())?'disabled':''} onclick="check()">Kontrol Et</button>`;
     else foot=`<div class="fb">${L.res.ok?'✅ Doğru! +'+L.res.xp+' XP':'❌ Yanlış'}</div><p>${L.res.ok?'Harika gidiyorsun.':L.res.msg}</p><button class="btn ${L.res.ok?'':'red'}" onclick="next()">Devam</button>`;
   }
-  $('#app').innerHTML=`<div class="top"><button class="x" onclick="if(confirm('Dersten çıkılsın mı? İlerleme kaybolur.'))home()">✕</button><div class="bar"><i style="width:${L.i/L.items.length*100}%"></i></div><span>${hs}</span></div>${body}<div class="foot ${L.res?(L.res.ok?'ok':'no'):''}"><div class="in">${foot}</div></div>`;
+  $('#app').innerHTML=`<div class="top"><button class="x" onclick="ask('Dersten çıkılsın mı? Bu dersteki ilerleme kaybolur.',home)">✕</button><div class="bar"><i style="width:${L.i/L.items.length*100}%"></i></div><span>${hs}</span></div>${body}<div class="foot ${L.res?(L.res.ok?'ok':'no'):''}"><div class="in">${foot}</div></div>`;
   const inp=$('#inp');if(inp&&!L.res)inp.focus();
   if($('#ta'))pv();
 }
@@ -190,11 +260,11 @@ function finish(){
   ${nu&&first?`<p>🔓 Yeni bölüm açıldı: <b>${nu.t}</b></p>`:''}
   <button class="btn" onclick="${nu?`start(${nu.id})`:'home()'}">${nu?'Sonraki bölüm':'Ana sayfa'}</button><br><button class="btn ghost" onclick="home()">Ana sayfa</button></div>`;
 }
-const SN=[[1,'<p>','<p>Yazı</p>'],[2,'<h1>','<h1>Başlık</h1>'],[2,'<strong>','<strong>kalın</strong>'],[2,'<em>','<em>eğik</em>'],[3,'<a>','<a href="https://example.com">Bağlantı</a>'],[4,'<img>','<img src="kedi.jpg" alt="Açıklama">'],[5,'<ul>','<ul>\n<li>Madde</li>\n</ul>'],[5,'<ol>','<ol>\n<li>Madde</li>\n</ol>']];
+const SN=[[1,'<p>','<p>Yazı</p>'],[2,'<h1>','<h1>Başlık</h1>'],[2,'<strong>','<strong>kalın</strong>'],[2,'<em>','<em>eğik</em>'],[3,'<a>','<a href="https://example.com">Bağlantı</a>'],[4,'<img>','<img src="kedi.jpg" alt="Açıklama">'],[5,'<ul>','<ul>\n<li>Madde</li>\n</ul>'],[5,'<ol>','<ol>\n<li>Madde</li>\n</ol>'],[6,'<title>','<title>Sayfa adı</title>'],[7,'<div>','<div>\n<p>Grup</p>\n</div>'],[8,'<table>','<table border=\"1\">\n<tr><th>Ad</th><th>Yaş</th></tr>\n<tr><td>Ali</td><td>12</td></tr>\n</table>'],[9,'<input>','<input type=\"text\" placeholder=\"Adın\">'],[9,'<button>','<button>Gönder</button>'],[10,'style','<p style=\"color:blue\">Mavi yazı</p>']];
 const TPL={'Boş sayfa':'','Kişisel sayfa':'<h1>Merhaba, ben ...</h1>\n<p>Kendimi tanıtan <strong>kısa</strong> bir yazı.</p>\n<h2>Hobilerim</h2>\n<ul>\n<li>Kitap okumak</li>\n<li>Kod yazmak</li>\n<li>Yürüyüş</li>\n</ul>','Bağlantı sayfası':'<h1>Favori Sitelerim</h1>\n<ol>\n<li><a href="https://wikipedia.org">Vikipedi</a></li>\n<li><a href="https://example.com">Örnek site</a></li>\n</ol>'};
 const TN=Object.keys(TPL);
-const TK=[['Bir <h1> başlık ve bir <p> paragraf yaz',d=>d.querySelector('h1')&&d.querySelector('p')],['Kalın (<strong>) ve eğik (<em>) yazı kullan',d=>d.querySelector('strong')&&d.querySelector('em')],['Bir bağlantı ekle (<a href="…">)',d=>d.querySelector('a[href]')],['Bir resim ekle (src ve alt ile)',d=>d.querySelector('img[src][alt]')],['En az 3 maddelik liste yap',d=>d.querySelectorAll('li').length>=3]];
-const VOID=['img','br','hr','input','meta','link'],KN=['p','h1','h2','h3','h4','h5','h6','strong','em','a','img','ul','ol','li','br','hr','div','span','b','i','u','table','tr','td','th','html','head','body','title','style','section','header','footer','nav','button','input','form','label','meta','link'];
+const TK=[['Bir <h1> başlık ve bir <p> paragraf yaz',d=>d.querySelector('h1')&&d.querySelector('p')],['Kalın (<strong>) ve eğik (<em>) yazı kullan',d=>d.querySelector('strong')&&d.querySelector('em')],['Bir bağlantı ekle (<a href="…">)',d=>d.querySelector('a[href]')],['Bir resim ekle (src ve alt ile)',d=>d.querySelector('img[src][alt]')],['En az 3 maddelik liste yap',d=>d.querySelectorAll('li').length>=3],['Bir tablo yap (th ve td ile)',d=>d.querySelector('table th')&&d.querySelector('table td')],['Bir input ve bir button ekle',d=>d.querySelector('input')&&d.querySelector('button')],['Bir yazıya style ile renk ver',d=>d.querySelector('[style*="color"]')]];
+const VOID=['img','br','hr','input','meta','link'],KN=['p','h1','h2','h3','h4','h5','h6','strong','em','a','img','ul','ol','li','br','hr','div','span','b','i','u','table','tr','td','th','html','head','body','title','style','section','header','footer','nav','button','input','form','label','meta','link','thead','tbody','textarea','select','option'];
 let U2=[];
 const pb=(l,f,id)=>`<button class="pill" ${id?`id="${id}"`:''} style="cursor:pointer;margin:3px;color:var(--fg);font:inherit;font-weight:700" onclick="${f}">${l}</button>`;
 function lint(c){
@@ -209,8 +279,8 @@ function lint(c){
       if(k<0)out.push(`Satır ${l}: </${n}> kapanışının açılış etiketi yok`);
       else{st.slice(k+1).forEach(x=>out.push(`Satır ${x.l}: <${x.n}> etiketi kapatılmamış`));st.length=k}
     }else{
-      const at=m[3].replace(/"[^"]*"|'[^']*'/g,'');
-      if(/=\s*[^"'\s]/.test(at)||/["']/.test(at))out.push(`Satır ${l}: özellik değerini tırnak içine al (örn. href="...")`);
+      const at=m[3].replace(/"[^"]*"|'[^']*'/g,'\u0001');
+      if(/=\s*[^\u0001\s]/.test(at)||/["']/.test(at))out.push(`Satır ${l}: özellik değerini tırnak içine al (örn. href="...")`);
       if(!VOID.includes(n))st.push({n,l});
     }
   }
@@ -218,7 +288,7 @@ function lint(c){
   return out.slice(0,5);
 }
 function play(){
-  L=null;U2=[];if(!S.pt)S.pt=[];
+  L=null;V='play';U2=[];if(!S.pt)S.pt=[];
   if(S.play==null)S.play=TPL['Kişisel sayfa'];
   $('#app').innerHTML=`<div class="top"><button class="x" onclick="home()">←</button><b>🧪 Deneme Alanı</b><span class="pill">⭐ ${S.xp} XP</span></div>
   <p style="color:var(--mut);margin-top:0">Öğrendiklerini burada dene. Kodun otomatik kaydedilir. Şablon seç ya da etiket ekle; kilitli etiketler o bölümü bitirince açılır.</p>
@@ -229,7 +299,7 @@ function play(){
   <div id="ln" style="background:var(--card);border:2px solid var(--bd);border-radius:14px;padding:10px;margin:8px 0;font-size:14px"></div>
   <p style="font-weight:700;color:var(--mut);margin-bottom:4px">Önizleme: ${pb('↕ Büyüt / küçült','big()')}</p><iframe id="pvw" style="height:260px" sandbox></iframe>
   <div id="tk" style="background:var(--card);border:2px solid var(--bd);border-radius:14px;padding:10px;margin:8px 0;font-size:14px"></div>
-  <button class="btn ghost" style="margin-top:12px" onclick="if(confirm('Tüm kod silinsin mi?')){snap();setc('')}">Temizle</button>`;
+  <button class="btn ghost" style="margin-top:12px" onclick="ask('Tüm kod silinsin mi?',()=>{snap();setc('')})">Temizle</button>`;
   pp(true);
 }
 function pp(nx){
@@ -263,6 +333,7 @@ function cp(){
   try{navigator.clipboard.writeText(v).then(ok,fb)}catch(e){fb()}
 }
 home();
+initCloud();
 </script>
 </body>
 </html>
