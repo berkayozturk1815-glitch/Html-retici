@@ -23,12 +23,13 @@ h1{font-size:26px;margin:8px 0}
 .unit.done .ic{background:var(--y)}
 .unit.lock{opacity:.5;cursor:not-allowed}.unit.lock .ic{background:var(--bd)}
 .unit b{display:block;font-size:18px}.unit span{color:var(--mut);font-size:14px}
-.btn{display:block;width:100%;border:0;border-bottom:5px solid var(--gd);background:var(--g);color:#fff;font:800 16px inherit;letter-spacing:.5px;text-transform:uppercase;padding:14px;border-radius:16px;cursor:pointer}
+.btn{display:block;width:100%;border:0;border-bottom:5px solid var(--gd);background:var(--g);color:#fff;font:800 16px system-ui,sans-serif;letter-spacing:.5px;text-transform:uppercase;padding:14px;border-radius:16px;cursor:pointer}
 .btn:disabled{background:var(--bd);border-color:var(--mut);color:var(--mut);cursor:default}
 .btn.red{background:var(--r);border-color:var(--rd)}
 .btn.ghost{background:transparent;color:var(--b);border:2px solid var(--bd);border-bottom-width:5px}
 .x{background:none;border:0;font-size:24px;color:var(--mut);cursor:pointer}
 pre,code{font-family:ui-monospace,Menlo,Consolas,monospace}
+pre u{color:#7bdc1d;border-bottom:2px solid #7bdc1d;text-decoration:none}
 pre{background:#1e2a30;color:#e8f5e9;padding:14px;border-radius:14px;overflow-x:auto;margin:10px 0}
 iframe{width:100%;height:90px;border:2px solid var(--bd);border-radius:14px;background:#fff}
 .opt{display:block;width:100%;text-align:left;background:var(--card);color:var(--fg);border:2px solid var(--bd);border-bottom-width:5px;border-radius:16px;padding:14px;margin:10px 0;font:16px ui-monospace,Menlo,monospace;cursor:pointer}
@@ -127,6 +128,18 @@ q:[
 {k:'mc',q:'Doğru kalıp hangisi?',o:['color=red','color: red;','color - red'],a:1,e:'CSS kalıbı özellik: değer; şeklindedir.'},
 {k:'type',q:'<b>Merhaba</b> paragrafına mavi renk ver:',a:['<p style="color:blue">Merhaba</p>','<p style="color:blue;">Merhaba</p>'],e:'Doğrusu: <p style="color:blue">Merhaba</p>'}]}
 ];
+const X={
+1:[{k:'fill',q:'Kapanış etiketini seç:',code:'<p>Merhaba___',o:['<p>','</p>','/p'],a:1,e:'Kapanış etiketi </p> şeklindedir.'},{k:'bug',q:'Bu kodda ne eksik?',code:'<p>Merhaba dünya',o:['Kapanış etiketi </p>','Başlık etiketi','Tırnak işareti'],a:0,e:'Açılan her etiket kapatılmalı: <p>Merhaba dünya</p>'}],
+2:[{k:'fill',q:'Boşluğa doğru etiketi seç (en büyük başlık):',code:'___Başlık</h1>',o:['<h1>','<p>','<h6>'],a:0,e:'h1 ile açılan </h1> ile kapanır ve en büyük başlıktır.'},{k:'bug',q:'Hata nedir?',code:'<strong>Kalın yazı</em>',o:['Kapanış etiketi açılışla uyuşmuyor','strong yanlış yazılmış','Boşluk eksik'],a:0,e:'<strong> ile açılan </strong> ile kapanmalı: <strong>Kalın yazı</strong>'}],
+3:[{k:'fill',q:'Adres hangi özelliğe yazılır?',code:'<a ___="https://example.com">Git</a>',o:['src','href','link'],a:1,e:'Bağlantı adresi href özelliğine yazılır.'},{k:'bug',q:'Hata nedir?',code:'<a href=https://example.com>Git</a>',o:['Adres tırnak içinde olmalı','a etiketi kapanmamış','href yanlış'],a:0,e:'Özellik değerleri tırnak içine yazılır: href="https://example.com"'}],
+4:[{k:'fill',q:'Resmin adresi hangi özelliğe yazılır?',code:'<img ___="kedi.jpg" alt="Kedi">',o:['src','href','alt'],a:0,e:'Resmin dosya adresi src özelliğine yazılır.'},{k:'bug',q:'Hata nedir?',code:'<img src="kedi.jpg" alt="Kedi"></img>',o:['img için kapanış etiketi yazılmaz','alt eksik','src yanlış'],a:0,e:'img kapanışsız bir etikettir; </img> yazılmaz.'}],
+5:[{k:'fill',q:'Numaralı liste için açılış etiketi hangisi?',code:'<___>\n<li>Elma</li>\n</ol>',o:['ul','ol','li'],a:1,e:'</ol> ile kapanıyorsa açılış <ol> olmalı.'},{k:'bug',q:'Hata nedir?',code:'<ul>\n<p>Elma</p>\n</ul>',o:['Liste maddesi <li> ile yazılmalı','ul yanlış','Kapanış eksik'],a:0,e:'Liste maddeleri <li> etiketiyle yazılır.'}],
+6:[{k:'fill',q:'title hangi bölümün içindedir?',code:'<html>\n<___>\n<title>Sayfam</title>\n</head>',o:['head','body','title'],a:0,e:'title, head içinde yer alır.'},{k:'bug',q:'Hata nedir?',code:'<html>\n<body>Merhaba</body>\n<title>Sayfam</title>\n</html>',o:['title, head içinde olmalı','body yanlış','html kapanmamış'],a:0,e:'title, head bölümünün içine yazılır.'}],
+7:[{k:'fill',q:'Satır atlatan etiketi seç:',code:'Birinci___İkinci',o:['<br>','<hr>','<div>'],a:0,e:'br satır sonu ekler.'},{k:'bug',q:'Hata nedir?',code:'<div><p>Kutu</p>',o:['div kapanmamış','p yanlış','br eksik'],a:0,e:'Doğrusu: <div><p>Kutu</p></div>'}],
+8:[{k:'fill',q:'Tablo satırı etiketini seç:',code:'<table>\n<___><td>A</td></tr>\n</table>',o:['tr','th','td'],a:0,e:'Satır <tr> ile başlar ve </tr> ile biter.'},{k:'bug',q:'Hata nedir?',code:'<table>\n<tr><td>A</td>\n</table>',o:['tr kapanmamış','td yanlış','table yanlış'],a:0,e:'Satır </tr> ile kapatılmalı.'}],
+9:[{k:'fill',q:'Kutunun türü hangi özellikle verilir?',code:'<input ___="text">',o:['type','src','name'],a:0,e:'Kutunun türü type özelliğiyle verilir.'},{k:'bug',q:'Hata nedir?',code:'<input type="text"></input>',o:['input kapanış etiketi istemez','type yanlış','label eksik'],a:0,e:'input kapanışsızdır: <input type="text">'}],
+10:[{k:'fill',q:'Yazı rengi için hangi özellik?',code:'<p style="___: red">Yazı</p>',o:['color','size','red'],a:0,e:'Yazı rengi için color özelliği kullanılır.'},{k:'bug',q:'Hata nedir?',code:'<p style="color=red">Yazı</p>',o:['= yerine : kullanılmalı','p yanlış','tırnak fazla'],a:0,e:'CSS kalıbı özellik: değer; şeklindedir (color: red).'}]};
+U.forEach(u=>u.q.splice(u.q.length-1,0,...X[u.id]));
 const G={
 1:{pre:[{h:'Kod nasıl yazılır?',p:'Her etiket aynı kalıpla yazılır: <b>&lt;</b> ile başlar, etiket adı gelir, <b>&gt;</b> ile biter. Kapanışta ada bir <b>/</b> eklenir. Küçük harf kullanmak alışkanlıktır. Boşluklar ve yeni satırlar sayfanın görünüşünü değiştirmez, sadece kodu okunaklı yapar.',c:'<p>Kod    böyle\nyazılır</p>'}],
  g:[['<etiket>','Açılış etiketi: bir şeyin başladığını söyler'],['</etiket>','Kapanış etiketi: bir şeyin bittiğini söyler'],['<p>','Paragraf, yani düz yazı'],['içerik','İki etiketin arasına yazdığın metin']],
@@ -170,6 +183,7 @@ async function initCloud(){
     if(V==='home')home();
   }catch(e){DB=null;ST='local'}
 }
+window.addEventListener('error',()=>{try{$('#dlg').innerHTML=`<div class="ov"><div><p style="font-size:17px">Bir şey ters gitti 😕 İlerlemen kaydedildi.</p><button class="btn" onclick="no();home()">Ana sayfaya dön</button></div></div>`}catch(x){}});
 function ask(m,f){CB=f;$('#dlg').innerHTML=`<div class="ov"><div><p style="font-size:17px">${m}</p><button class="btn red" onclick="yes()">Evet</button><button class="btn ghost" onclick="no()">Vazgeç</button></div></div>`}
 function yes(){const f=CB;no();if(f)f()}
 function no(){CB=null;$('#dlg').innerHTML=''}
@@ -185,17 +199,17 @@ function home(){
   L=null;V='home';
   const un=U.map((u,i)=>{
     const dn=S.done.includes(u.id),lk=i>0&&!S.done.includes(U[i-1].id);
-    return `<button class="unit ${dn?'done':''} ${lk?'lock':''}" ${lk?'disabled':`onclick="start(${u.id})"`}><div class="ic">${lk?'🔒':dn?'⭐':u.ic}</div><div><b>Bölüm ${u.id}: ${u.t}</b><span>${lk?'Önceki bölümü bitir':u.d}${dn?' • Tekrar çalış':''}</span></div></button>`}).join('');
+    return `<button class="unit ${dn?'done':''} ${lk?'lock':''}" ${lk?'disabled':`onclick="start(${u.id})"`}><div class="ic">${lk?'🔒':dn?'⭐':u.ic}</div><div><b>Bölüm ${u.id}: ${u.t}</b><span>${lk?'Önceki bölümü bitir':u.d}${dn?' • Tekrar çalış':''}${S.stars&&S.stars[u.id]?' • '+'★'.repeat(S.stars[u.id]):''}</span></div></button>`}).join('');
   $('#app').innerHTML=`<div class="top"><span class="pill">🔥 ${S.streak}</span><span class="pill">⭐ ${S.xp} XP</span><span class="pill">Lv ${lvl()} · ${names[Math.min(lvl()-1,4)]}</span></div>
   <div class="bar"><i style="width:${(S.xp%60)/60*100}%"></i></div>
-  <h1>HTML Yolculuğun</h1><p style="margin:0 0 6px;font-size:14px;color:var(--mut)">${acct()}</p><p style="color:var(--mut);margin-top:0">Bölümleri sırayla bitir, XP kazan, level atla. ${S.done.length}/${U.length} bölüm tamam.</p><button class="btn ghost" onclick="play()">🧪 Deneme Alanı: kendi sayfanı yap</button>${S.done.length===U.length?`<div class="center" style="padding-top:10px"><div class="big">🏆</div><h1>Tüm bölümler tamam!</h1><p>Harikasın! İstersen bölümleri tekrar çalış ya da en baştan başla.</p><button class="btn red" onclick="ask('Tüm ilerleme (XP, level, bölümler) sıfırlanacak ve 1. bölümden başlayacaksın. Deneme Alanındaki kodun silinmez. Emin misin?',resetAll)">🔄 Baştan başla</button></div>`:''}${un}
+  <h1>HTML Yolculuğun</h1><p style="margin:0 0 6px;font-size:14px;color:var(--mut)">${acct()}</p><p style="color:var(--mut);margin-top:0">Bölümleri sırayla bitir, XP kazan, level atla. ${S.done.length}/${U.length} bölüm tamam.</p><button class="btn ghost" onclick="play()">🧪 Deneme Alanı: kendi sayfanı yap</button>${S.done.length===U.length?`<div class="center" style="padding-top:10px"><div class="big">🏆</div><h1>Tüm bölümler tamam!</h1><p>Harikasın! İstersen bölümleri tekrar çalış ya da en baştan başla.</p><button class="btn red" onclick="ask('Tüm ilerleme (XP, level, bölümler) sıfırlanacak ve 1. bölümden başlayacaksın. Deneme Alanındaki kodun silinmez. Emin misin?',resetAll)">🔄 Baştan başla</button></div>`:''}${(S.miss||[]).length?`<button class="unit" onclick="startReview()"><div class="ic" style="background:var(--b)">🔁</div><div><b>Tekrar: zorlandığın sorular</b><span>${S.miss.length} soru seni bekliyor</span></div></button>`:''}${un}
   ${S.started?'':`<div class="ov"><div><h1>Hoş geldin! 👋</h1><p>Adın ne?</p><input class="code" id="nm" maxlength="20" placeholder="Adın (isteğe bağlı)" value="${esc(S.name||'')}"><p>Seviyeni seç:</p><button class="btn" onclick="lv(0)">Sıfırdan başlıyorum</button><button class="btn ghost" onclick="lv(1)">HTML'i biraz biliyorum (1. bölümü atla)</button></div></div>`}`;
 }
 function lv(k){const nm=$('#nm');if(nm&&nm.value.trim())S.name=nm.value.trim().slice(0,20);S.started=true;if(k&&!S.done.includes(1))S.done.push(1);save();home()}
 function start(id){
   V='lesson';
   const u=U.find(x=>x.id==id);
-  L={u,items:[{k:'g',g:G[u.id].g},...(G[u.id].pre||[]).map(t=>({k:'t',...t})),...u.teach.map(t=>({k:'t',...t})),{k:'try',c:G[u.id].tr,p:G[u.id].p||'Kodu değiştir, altındaki önizleme anında güncellenir. Hata yapmak serbest!'},...u.q.map(q=>({...q}))],i:0,hearts:3,xp:0,wrong:0,sel:null,val:'',res:null};
+  L={u,items:[{k:'g',g:G[u.id].g},...(G[u.id].pre||[]).map(t=>({k:'t',...t})),...u.teach.map(t=>({k:'t',...t})),{k:'try',c:G[u.id].tr,p:G[u.id].p||'Kodu değiştir, altındaki önizleme anında güncellenir. Hata yapmak serbest!'},...u.q.map((q,i)=>({...q,key:u.id+':'+i}))],i:0,hearts:3,xp:0,wrong:0,sel:null,val:'',res:null};
   lesson();
 }
 function lesson(){
@@ -211,11 +225,14 @@ function lesson(){
     body=`<h1>${it.h}</h1><p>${it.p}</p><pre>${esc(it.c)}</pre><p style="font-weight:700;color:var(--mut)">Tarayıcıda görünüşü:</p><iframe sandbox srcdoc="${it.c.replace(/"/g,'&quot;')}"></iframe>`;
     foot=`<button class="btn" onclick="next()">Devam</button>`;
   }else{
-    body=`<h1>${it.retry?'🔁 Tekrar dene':'Soru'}</h1><p style="font-size:18px">${it.q}</p>`;
-    if(it.k==='mc')body+=it.o.map((o,i)=>`<button class="opt ${L.sel===i?'sel':''}" ${L.res?'disabled':`onclick="L.sel=${i};lesson()"`}>${esc(o)}</button>`).join('');
+    body=`<h1>${it.retry?'🔁 Tekrar dene ('+((it.n||1)+1)+'. deneme, en fazla 3)':'Soru'}</h1><p style="font-size:18px">${it.q}</p>`;
+    if(it.part)body+='<div class="pill" style="display:block;margin:8px 0;font-weight:700">'+(it.k==='type'?'💡 Cevabın bir kısmı: <code>'+esc(half(it.a[0]))+'</code>':'💡 Yanlış seçeneklerin çoğunu eledim, geriye 2 seçenek kaldı.')+'</div>';
+    if(it.code)body+='<pre>'+esc(it.code).replace('___','<u>'+(L.sel!==null?esc(it.o[L.sel]):'____')+'</u>')+'</pre>';
+    if(it.k!=='type')body+=it.o.map((o,i)=>`<button class="opt ${L.sel===i?'sel':''}" ${(L.gone||[]).includes(i)?'style="display:none"':''} ${L.res?'disabled':`onclick="L.sel=${i};lesson()"`}>${esc(o)}</button>`).join('');
     else body+=`<input class="code" id="inp" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Kodu buraya yaz…" value="${L.val.replace(/"/g,'&quot;')}" ${L.res?'disabled':''} oninput="L.val=this.value;$('#chk').disabled=!L.val.trim()" onkeydown="if(event.key==='Enter'&&L.val.trim())check()">`;
-    if(!L.res)foot=`<button class="btn" id="chk" ${(it.k==='mc'?L.sel===null:!L.val.trim())?'disabled':''} onclick="check()">Kontrol Et</button>`;
-    else foot=`<div class="fb">${L.res.ok?'✅ Doğru! +'+L.res.xp+' XP':'❌ Yanlış'}</div><p>${L.res.ok?'Harika gidiyorsun.':L.res.msg}</p><button class="btn ${L.res.ok?'':'red'}" onclick="next()">Devam</button>`;
+    if(!L.res)body+=`<button class="pill" style="cursor:pointer;color:var(--fg);font:inherit;font-weight:700" onclick="hint()">💡 İpucu</button>${L.hint?`<p style="color:var(--b);font-weight:600;white-space:pre-line">${esc(L.hint)}</p>`:''}`;
+    if(!L.res)foot=`<button class="btn" id="chk" ${(it.k!=='type'?L.sel===null:!L.val.trim())?'disabled':''} onclick="check()">Kontrol Et</button>`;
+    else foot=`<div class="fb">${L.res.ok?'✅ Doğru! +'+L.res.xp+' XP':'❌ Yanlış'}</div><p>${L.res.ok?esc(L.items[L.i].e||'Harika gidiyorsun.'):L.res.msg}</p><button class="btn ${L.res.ok?'':'red'}" onclick="next()">Devam</button>`;
   }
   $('#app').innerHTML=`<div class="top"><button class="x" onclick="ask('Dersten çıkılsın mı? Bu dersteki ilerleme kaybolur.',home)">✕</button><div class="bar"><i style="width:${L.i/L.items.length*100}%"></i></div><span>${hs}</span></div>${body}<div class="foot ${L.res?(L.res.ok?'ok':'no'):''}"><div class="in">${foot}</div></div>`;
   const inp=$('#inp');if(inp&&!L.res)inp.focus();
@@ -232,30 +249,82 @@ function diag(it,v){
 }
 function check(){
   const it=L.items[L.i];
-  const ok=it.k==='mc'?L.sel===it.a:it.a.some(a=>norm(a)===norm(L.val));
-  if(ok){const x=it.retry?5:10;L.xp+=x;L.res={ok,xp:x}}
-  else{L.wrong++;L.items.push({...it,retry:true});
-    L.res={ok,msg:it.k==='mc'?'Doğru cevap: <code>'+esc(it.o[it.a])+'</code>. '+it.e:diag(it,L.val)+' <br>Doğru cevap: <code>'+esc(it.a[0])+'</code>'}}
+  const ok=it.k!=='type'?L.sel===it.a:it.a.some(a=>norm(a)===norm(L.val));
+  if(ok){const x=(it.retry||L.hu)?5:10;L.xp+=x;L.res={ok,xp:x};if(!it.retry&&S.miss)S.miss=S.miss.filter(k=>k!==it.key)}
+  else{L.wrong++;S.miss=S.miss||[];if(it.key&&!S.miss.includes(it.key))S.miss.push(it.key);const n=(it.n||0)+1;
+    if(n>=3){L.fail=true;L.failQ=it}
+    else{let gone;if(it.k!=='type'){const wr=it.o.map((_,i)=>i).filter(i=>i!==it.a),keep=wr.find(i=>i!==L.sel);gone=n>=2?wr.filter(i=>i!==(keep===undefined?wr[0]:keep)):undefined}
+      L.items.splice(Math.min(L.i+3,L.items.length),0,{...it,retry:true,n,part:n>=2,gone})}
+    L.res={ok,msg:it.k!=='type'?'Doğru cevap: <code>'+esc(it.o[it.a])+'</code>. '+esc(it.e):esc(diag(it,L.val))+' <br>Doğru cevap: <code>'+esc(it.a[0])+'</code>'};if(n>=3)L.res.msg+='<br><b>3 deneme bitti.</b> Devam’a basınca bölüm kapanacak; konuyu tekrar okuyup gel.'}
+  save();lesson();
+}
+function half(a){const t=a.match(/<[^>]*>|[^<]+/g)||[a];return t.length>=2?t.slice(0,Math.ceil(t.length/2)).join('')+' …':a.slice(0,Math.ceil(a.length/2))+' …'}
+function smart(a,v){const toks=a.match(/<[^>]*>|[^<]+/g)||[a];let u=norm(v),i=0;for(;i<toks.length;i++){const t=norm(toks[i]);if(u.startsWith(t))u=u.slice(t.length);else break}return{toks,i,u}}
+const nm=t=>t.replace(/^<\/?([a-zA-Z0-9]+)[\s\S]*$/,'$1');
+const attrs=t=>[...t.matchAll(/\s([a-zA-Z-]+)=/g)].map(m=>m[1]);
+const exT=n=>['p','b','i','li'].find(x=>x!==n);
+function step(t,l){
+  const n=nm(t),x=exT(n),at=attrs(t);
+  if(/^<\//.test(t))return l===1?'Sırada: kapanış etiketi.\nÖrnek: <'+x+'>Merhaba → <'+x+'>Merhaba</'+x+'>':l===2?'Kapanış = < + / + açılıştaki ad + >\nÖrnek: <'+x+'> açtıysan kapanışı </'+x+'> olur.':'Kapatılacak etiket: “'+n+'” (bitişik yaz: < / '+n+' >)';
+  if(/^</.test(t)){const ex=at.length?(n==='img'?'<a href="adres">':'<img src="a.png">'):'<'+x+'>Merhaba</'+x+'>';return l===1?'Sırada: açılış etiketi'+(at.length?' (özellikli)':'')+'.\nÖrnek: '+ex+(at.length?'  → özellik: ad="değer"':'  → baştaki <'+x+'> açılıştır.'):l===2?'Açılış = < + etiket adı + >'+(at.length?'\nBu etikette özellik var: '+at.join(', ')+' (ad="değer")':'\nÖrnek: <'+x+'> gibi.'):'Açılacak etiket: “'+n+'” (bitişik yaz: < '+n+(at.length?' özellik':'')+' >)'}
+  return l===1?'Sırada: etiketin içine sorudaki yazı: “'+t.trim()+'”.\nÖrnek: <'+x+'>Merhaba</'+x+'> → “Merhaba” içeriktir.':l===2?'Sorudaki yazıyı aynen yaz (büyük/küçük harfe dikkat).':'Yazı '+t.trim().length+' karakter, “'+t.trim()[0]+'” ile başlıyor.';
+}
+function hint(){
+  const it=L.items[L.i];L.hu=true;
+  if(it.k==='type'){
+    const v=L.val||'',a=it.a[0];
+    if(L.lv!==v){L.hl=0;L.lv=v}
+    L.hl++;
+    const {toks,i,u}=smart(a,v);
+    let raw='';
+    if(u){const n=norm(v).length-u.length;let c=0,k=0;while(k<v.length&&c<n){c+=norm(v[k]).length;k++}raw=v.slice(k).trim()}
+    if(!v.trim()){
+      const f=toks[0],isT=!/^</.test(f),fa=attrs(f),texts=toks.filter(t=>!/^</.test(t)).map(t=>t.trim());
+      const first=isT?'“'+f.trim()+'” (sorudaki yazı)':fa.length?'“<'+nm(f)+' …>” açılış etiketi (özellikler: '+fa.join(', ')+')':'“'+f.trim()+'” (açılış etiketi)';
+      L.hint=L.hl===1?['Nereden başlayacağını hatırlatayım:','• İlk yazacağın: '+first,(!isT&&texts.length?'• Sorudaki yazı “'+texts.join('”, “')+'” etiketin içine gelecek':''),(toks.some(t=>/^<\//.test(t))?'• En sonda açtığın etiketleri kapat':'')].filter(Boolean).join('\n'):'Örnekle:\n'+step(f,Math.min(L.hl-1,3));
+    }else if(i>=toks.length){
+      L.hint=u?'Fazla yazı: “'+raw+'”. Sil, gerisi doğru.':'Tamam görünüyor 👍 Kontrol Et’e bas.';
+    }else{
+      const t=toks[i],done=toks.slice(0,i).join(''),part=u&&norm(t).startsWith(u);
+      const st=done?'Doğru: “'+done+'”':'',bd=u?(part?'Yarım: “'+raw+'” → tamamla.':'Hatalı: “'+raw+'” → sil, tekrar dene.'):'';
+      L.hint=[st,bd,step(t,Math.min(L.hl,3))].filter(Boolean).join('\n');
+    }
+  }else{
+    L.mh=(L.mh||0)+1;L.gone=L.gone||[];let cut=0;
+    if(L.sel!==null&&L.sel!==it.a){L.gone.push(L.sel);L.sel=null;cut++}
+    const w=it.o.map((_,i)=>i).filter(i=>i!==it.a&&!L.gone.includes(i));
+    while(w.length>1){L.gone.push(w.shift());cut++}
+    const tip=it.k==='bug'?'Her açılan etiket kapanmış mı? Değerler tırnakta mı?\nÖrnek: <b>Selam → eksik, doğrusu <b>Selam</b>':it.k==='fill'?'Boşluğa bak: orada ne eksik?\nÖrnek: <b>Selam___ → boşluğa </b> gelir.':'İki seçeneği tek tek dene: soruda istenen şeyi hangisi yapıyor?';
+    L.hint=cut?'Yanlışları sildim, 2 seçenek kaldı.':(L.mh<=2?tip:'Birini seç; yanlışsa nedenini açıklarım.');
+  }
   lesson();
 }
+function startReview(){
+  V='lesson';const items=[];
+  (S.miss||[]).slice(0,8).forEach(k=>{const[a,b]=k.split(':'),u=U.find(x=>x.id==a),q=u&&u.q[b];if(q)items.push({...q,key:k})});
+  if(!items.length){S.miss=[];save();return home()}
+  L={u:{id:0,t:'Tekrar'},items,i:0,hearts:3,xp:0,wrong:0,sel:null,val:'',res:null,rev:true};lesson();
+}
 function next(){
-  L.i++;L.sel=null;L.val='';L.res=null;
+  if(L.fail)return fail();
+  L.i++;L.sel=null;L.val='';L.res=null;L.hint='';L.hl=0;L.gone=[];L.hu=false;L.mh=0;{const nx=L.items[L.i];if(nx&&nx.gone)L.gone=nx.gone.slice()}
   if(L.i>=L.items.length)return finish();
   lesson();
 }
 function fail(){
-  const id=L.u.id;
-  $('#app').innerHTML=`<div class="center"><div class="big">💔</div><h1>Canların bitti</h1><p>Sorun değil, hatalar öğrenmenin parçası! Konuyu tekrar okuyup yeniden dene.</p><button class="btn" onclick="start(${id})">Tekrar dene</button><br><button class="btn ghost" onclick="home()">Ana sayfa</button></div>`;
+  const q=L.failQ,id=L.u.id,rv=L.rev,ans=q?(q.k!=='type'?q.o[q.a]:q.a[0]):'';
+  $('#app').innerHTML=`<div class="center"><div class="big">📖</div><h1>Bu bölümü tekrar edelim</h1><p>Bu soruda 3 denemede doğru yapamadın, sorun değil! Konuyu bir kez daha okuyup yeniden dene.</p>${q?`<p>Takıldığın sorunun doğru cevabı: <code>${esc(ans)}</code></p>`:''}<button class="btn" onclick="${rv?'startReview()':`start(${id})`}">Bölümü baştan başlat</button><br><button class="btn ghost" onclick="home()">Ana sayfa</button></div>`;
 }
 function finish(){
+  if(L.rev){S.xp+=L.xp+10;save();$('#app').innerHTML=`<div class="center"><div class="big">🔁</div><h1>Tekrar bitti!</h1><p style="font-size:18px">⭐ +${L.xp+10} XP<br>Kalan zor soru: ${(S.miss||[]).length}</p><button class="btn" onclick="home()">Ana sayfa</button></div>`;return}
   const u=L.u,old=lvl(),bonus=20,first=!S.done.includes(u.id);
-  S.xp+=L.xp+bonus;if(first)S.done.push(u.id);
+  S.xp+=L.xp+bonus;if(first)S.done.push(u.id);const st=L.wrong===0?3:L.wrong<=2?2:1;S.stars=S.stars||{};S.stars[u.id]=Math.max(S.stars[u.id]||0,st);
   const t=new Date().toDateString(),y=new Date(Date.now()-864e5).toDateString();
   if(S.last!==t){S.streak=S.last===y?S.streak+1:1;S.last=t}
   save();
   const up=lvl()>old,nu=U[U.findIndex(x=>x.id===u.id)+1];
   $('#app').innerHTML=`<div class="center"><div class="big">🎉</div><h1>Bölüm tamam!</h1>
-  <p style="font-size:18px">⭐ +${L.xp+bonus} XP (${bonus} bonus)<br>❌ ${L.wrong} hata<br>${L.wrong===0?'Kusursuz! 💯':'Hatalarından öğrendin 👏'}</p>
+  <p style="font-size:34px;margin:0">${'★'.repeat(st)}${'☆'.repeat(3-st)}</p><p style="font-size:18px">⭐ +${L.xp+bonus} XP (${bonus} bonus)<br>❌ ${L.wrong} hata<br>${L.wrong===0?'Kusursuz! 💯':'Hatalarından öğrendin 👏'}</p>
   ${up?`<p style="font-size:20px;font-weight:800;color:var(--b)">🆙 Level ${lvl()}: ${names[Math.min(lvl()-1,4)]}!</p>`:''}
   ${nu&&first?`<p>🔓 Yeni bölüm açıldı: <b>${nu.t}</b></p>`:''}
   <button class="btn" onclick="${nu?`start(${nu.id})`:'home()'}">${nu?'Sonraki bölüm':'Ana sayfa'}</button><br><button class="btn ghost" onclick="home()">Ana sayfa</button></div>`;
